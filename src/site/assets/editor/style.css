@@ -1,0 +1,134 @@
+/**
+ * Copyright © 2018.
+ * Salvare is the work of Milan Szekely <szekelymilan1125@gmail.com>
+*/
+div#editor {
+	position: absolute;
+	left: 0px;
+	top: 50px;
+	width: 100%;
+	height: calc(100% - 50px);
+	min-width: 650px;
+}
+
+nav.menubar {
+	position: absolute;
+	background-color: #181818;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+nav#upper {
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 50px;
+	min-width: 650px;
+}
+
+nav#upper ul#left {
+	position: absolute;
+	top: -10px;
+	left: -25px;
+	height: 100%;
+}
+img#logo { max-height: 80%; cursor: pointer; }
+
+nav#upper ul#left li {
+	display: inline;
+	color: white;
+	background-color: transparent;
+	padding: 6px 12px;
+	margin-right: -6px;
+	margin-top: -32px;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;	
+	border: solid #f2f2f2 2px;
+	border-radius: 2px;
+	font-family: 'Roboto Condensed', sans-serif;
+	transition: all 0.5s;
+	line-height: 100%;
+	vertical-align: middle;
+}
+nav#upper ul#left li:hover { background-color: #f2f2f2 !important; }
+nav#upper ul#left li:hover a { color: #383838 !important; }
+
+nav#upper ul li div#options {
+	position: absolute; 
+	background-color: #181818; 
+	z-index: 100;
+	left: 230px;
+	top: 42px;
+	width: 200px; 
+	height: 300px;
+	display: none;
+}
+div.option { height: 100px; }
+
+nav#upper ul#right {
+	position: absolute;
+	float: right;
+	right: 10px;
+}
+
+nav#upper ul#right li {
+	display: inline;
+	color: white;
+	background-color: transparent;
+	padding: 6px 16px;
+	margin-top: -8px;
+	text-align: center;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;	
+	border: solid #f2f2f2 2px;
+	border-radius: 2px;
+	font-family: 'Roboto Condensed', sans-serif;
+	transition: all 0.5s;
+}
+nav#upper ul#right li:hover { background-color: #f2f2f2; }
+nav#upper ul#right li:hover a { color: #383838; }
+
+nav#upper ul#right li#salvare-button {
+	background-color: #83223a;
+	border-color: #ec3360;
+	transition: all 0.3s;
+}
+nav#upper ul#right li#salvare-button:hover { background-color: #ec3360; }
+nav#upper ul#right li#salvare-button:hover a { color: white; }
+
+a { color: white; text-decoration: none; }
+
+div#share-info {
+	position: absolute;
+	left: calc(100% - 218px);
+	top: 60px;
+	width: 200px;
+	height: 45px;
+	font-family: 'Roboto Condensed', sans-serif;
+	text-align: center;
+	line-height: 45px;
+	vertical-align: middle;
+	z-index: 100;
+	color: white;
+	background-color: #383933;
+	border: solid #181818 4px;
+	border-radius: 2px;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	transition: all 0.5s;
+	opacity: 0;
+}
+@media all and (max-width: 650px) { 
+	div#share-info { left: calc(650px - 218px); } 
+}

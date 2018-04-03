@@ -1,0 +1,317 @@
+<!--
+  - Copyright © 2018.
+  - Salvare is the work of Milan Szekely <szekelymilan1125@gmail.com>
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>salvare - editor</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="description" content="Salvare is an open-source collaborative real-time editor, written by Milan Szekely.">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta property="og:title" content="salvare">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="salva.re">
+	<link rel="schema.DC" href="https://purl.org/dc/elements.1.1/">
+	<link rel="schema.DCTERMS" href="https://purl.org/dc/terms/">
+	<meta name="DC.title" content="salvare - editor">
+	<meta name="DC.creator" content="Milan Szekely">
+	<meta name="DC.date" content="2018">
+	<meta name="DC.type" content="website">
+	<meta name="DC.language" content="en">
+	<link rel="shortcut icon" type="image/png" href="assets/logo.png">
+	<link rel="icon" type="image/png" href="assets/logo.png">
+
+	<!-- Font Awesome -->
+	<link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
+
+	<!-- Font(s) -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet"> 
+
+	<!-- CodeMirror (with 'monokai' theme in default) -->
+	<link rel="stylesheet" href="node_modules/codemirror/lib/codemirror.css">
+	<link rel="stylesheet" href="node_modules/codemirror/addon/fold/foldgutter.css">
+	<link rel="stylesheet" href="node_modules/codemirror/addon/dialog/dialog.css">
+	<link rel="stylesheet" href="node_modules/codemirror/theme/monokai.css"> <!-- Default theme -->
+	<script src="node_modules/codemirror/lib/codemirror.js"></script>
+	<script src="node_modules/codemirror/addon/search/searchcursor.js"></script>
+	<script src="node_modules/codemirror/addon/search/search.js"></script>
+	<script src="node_modules/codemirror/addon/dialog/dialog.js"></script>
+	<script src="node_modules/codemirror/addon/edit/matchbrackets.js"></script>
+	<script src="node_modules/codemirror/addon/edit/closebrackets.js"></script>
+	<script src="node_modules/codemirror/addon/comment/comment.js"></script>
+	<script src="node_modules/codemirror/addon/wrap/hardwrap.js"></script>
+	<script src="node_modules/codemirror/addon/fold/foldcode.js"></script>
+	<script src="node_modules/codemirror/addon/fold/brace-fold.js"></script>
+	<script src="node_modules/codemirror/addon/display/placeholder.js"></script>
+	<script src="node_modules/codemirror/addon/mode/loadmode.js"></script>
+	<script src="node_modules/codemirror/mode/meta.js"></script>
+	<script src="node_modules/codemirror/keymap/sublime.js"></script>
+	<style type="text/css">
+		.CodeMirror { line-height: 1.3; height: 100%; }
+		.CodeMirror-linenumbers { padding: 0 8px; }
+		.CodeMirror pre.CodeMirror-placeholder { color: #999; }
+	</style>
+
+	<!-- ot.js -->
+	<script src="node_modules/ot/lib/text-operation.js"></script>
+	<script src="node_modules/ot/lib/selection.js"></script>
+	<script src="node_modules/ot/lib/wrapped-operation.js"></script>
+	<script src="node_modules/ot/lib/undo-manager.js"></script>
+	<script src="node_modules/ot/lib/client.js"></script>
+	<script src="node_modules/ot/lib/codemirror-adapter.js"></script>
+	<script src="node_modules/ot/lib/socketio-adapter.js"></script>
+	<script src="node_modules/ot/lib/editor-client.js"></script>
+
+	<!-- socket.io -->
+	<script src="node_modules/socket.io-client/dist/socket.io.js"></script>
+
+	<!-- download.js -->
+	<script src="node_modules/downloadjs/download.min.js"></script>
+
+	<!-- clipboard.js -->
+	<script src="node_modules/clipboard/dist/clipboard.min.js"></script>
+
+	<!-- stylesheet -->
+	<link href="assets/editor/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<nav class="menubar" id="upper">
+		<ul id="left">
+			<img id="logo" src="assets/long.png" onclick="window.location.href = '/';" ondragstart="return false;"></img>
+			<li onclick="window.location.href = '/?newSession';"><a href="#"><i class="fas fa-plus"></i></a></li>
+			<li id="options-container" class="" onclick="openOptions();">
+				<a href="#"><i class="fas fa-cog"></i></a>
+				<div id="options">
+					<div class="option">
+						<br><label for="mode">Mode</label><br><br>
+						<select id="select-mode" name="mode" label="Mode" style="width: 150px;" onchange="changeMode();">
+							<option value="text/x-brainfuck">Brainfuck</option>
+							<option value="text/x-csrc">C</option>
+							<option value="text/x-c++src">C++</option>
+							<option value="text/x-csharp">C#</option>
+							<option value="text/x-clojure">Clojure</option>
+							<option value="text/x-coffeescript">CoffeeScript</option>
+							<option value="text/x-common-lisp">Common Lisp</option>
+							<option value="text/css">CSS</option>
+							<option value="text/x-erlang">Erlang</option>
+							<option value="text/x-fsharp">F#</option>
+							<option value="text/x-fortran">Fortran</option>
+							<option value="text/x-haskell">Haskell</option>
+							<option value="text/x-java">Java</option>
+							<option value="text/javascript">JavaScript</option>
+							<option value="text/jsx">JSX</option>
+							<option value="text/x-julia">Julia</option>
+							<option value="text/x-lua">Lua</option>
+							<option value="text/x-markdown">Markdown</option>
+							<option value="text/x-objectivec">Objective-C</option>
+							<option value="text/x-ocaml">OCaml</option>
+							<option value="text/x-pascal">Pascal</option>
+							<option value="text/x-perl">Perl</option>
+							<option value="text/x-php">PHP</option>
+							<option value="application/x-httpd-php">PHP (HTML)</option>
+							<option value="none">Plain Text</option>
+							<option value="application/x-powershell">PowerShell</option>
+							<option value="text/x-ruby">Ruby</option>
+							<option value="text/x-scala">Scala</option>
+							<option value="text/x-sh">Shell</option>
+							<option value="text/x-sql">SQL</option>
+							<option value="text/x-squirrel">Squirrel</option>
+							<option value="text/x-swift">Swift</option>
+							<option value="text/x-vb">VB.NET</option>
+							<option value="text/x-vue">Vue.js</option>
+						</select>
+					</div>
+					<div class="option">
+						<br><label for="theme">Theme</label><br><br>
+						<select id="select-theme" name="theme" label="Theme" style="width: 150px;" onchange="changeTheme();">
+							<option value="3024-day">3024-day</option>
+							<option value="3024-night">3024-night</option>
+							<option value="ambiance-mobile">ambiance-mobile</option>
+							<option value="ambiance">ambiance</option>
+							<option value="base16-dark">base16-dark</option>
+							<option value="base16-light">base16-light</option>
+							<option value="blackboard">blackboard</option>
+							<option value="cobalt">cobalt</option>
+							<option value="eclipse">eclipse</option>
+							<option value="elegant">elegant</option>
+							<option value="erlang-dark">erlang-dark</option>
+							<option value="lesser-dark">lesser-dark</option>
+							<option value="mbo">mbo</option>
+							<option value="mdn-like">mdn-like</option>
+							<option value="midnight">midnight</option>
+							<option value="monokai">monokai</option>
+							<option value="neat">neat</option>
+							<option value="neo">neo</option>
+							<option value="night">night</option>
+							<option value="paraiso-dark">paraiso-dark</option>
+							<option value="paraiso-light">paraiso-light</option>
+							<option value="pastel-on-dark">pastel-on-dark</option>
+							<option value="rubyblue">rubyblue</option>
+							<option value="solarized">solarized</option>
+							<option value="the-matrix">the-matrix</option>
+							<option value="tomorrow-night-eighties">tomorrow-night-eighties</option>
+							<option value="twilight">twilight</option>
+							<option value="vibrant-ink">vibrant-ink</option>
+							<option value="xq-dark">xq-dark</option>
+							<option value="xq-light">xq-light</option>
+						</select>
+					</div>
+					<div class="option">
+						<br><label for="tabSize">Tab Size</label><br><br>
+						<select id="select-tabSize" name="tabSize" label="Tab Size" style="width: 150px;" onchange="changeTabSize();">
+							<option value="2">2</option>
+							<option value="4">4</option>
+							<option value="6">6</option>
+							<option value="8">8</option>
+						</select>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul id="right">
+			<li id="salvare-button" onclick="downloadFile();"><a href="#">Salvare!</a></li>
+			<li id="share-button" data-clipboard-action="copy"><a href="#">Share code</a></li>
+			<li onclick="window.open('https://github.com/MakroBox/salvare', '_blank');"><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
+		</ul>
+	</nav>
+	<div id="share-info" onclick="clickOnShare();">
+		<span>URL copied to clipboard.</span>
+	</div>
+	<div id="editor">
+		<script type="text/javascript">
+			const sessID = "[[[[replaceWithID]]]]";
+			const socket = io(location.hostname, { query: 'sessID='+sessID });
+			const cm = CodeMirror(document.getElementById('editor'), {
+					lineNumbers: true,
+					placeholder: 'Write or paste code here...',
+					keyMap: 'sublime',
+					autoCloseBrackets: true,
+					matchBrackets: true,
+					showCursorWhenSelecting: true
+					//mode: 'javascript',
+					//theme: 'monokai',
+					//tabSize: 2
+			});
+
+			socket.on('doc', function(data) {
+				//console.dir(data);
+				cm.setValue(data.str);
+				loadMode(data.options.mode);
+				loadTheme(data.options.theme);
+				cm.setOption('tabSize', data.options.tabSize);
+				const serverAdapter = new ot.SocketIOAdapter(socket);
+				const editorAdapter = new ot.CodeMirrorAdapter(cm);
+				const client = new ot.EditorClient(data.revision, data.clients, serverAdapter, editorAdapter);
+			});
+
+			socket.on('updateOption', function(option, value) {
+				//alert(option + ': ' + value);
+				if (option == 'mode')
+					return loadMode(value);
+				if (option == 'theme')
+					return loadTheme(value);
+				if (option == 'tabSize')
+					return loadTabSize(value);
+			});
+
+
+			CodeMirror.modeURL = 'node_modules/codemirror/mode/%N/%N.js';
+			function loadMode(mime) {
+				document.getElementById('select-mode').value = mime;
+				const info = CodeMirror.findModeByMIME(mime);
+				if (!info)
+					return cm.setOption('mode', 'none');
+				cm.setOption('mode', mime);
+				CodeMirror.autoLoadMode(cm, info.mode);
+			}
+
+			const themeURL = 'node_modules/codemirror/theme/%N.css';
+			function loadTheme(name) {
+				document.getElementById('select-theme').value = name;
+				const url = themeURL.replace(/%N/gi, name);
+				const link = document.createElement('link');
+				link.id = url;
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = url;
+				link.media = 'all';
+				document.head.appendChild(link);
+				cm.setOption('theme', name);
+			}
+
+			function loadTabSize(size) {
+				document.getElementById('select-tabSize').value = size;
+				cm.setOption('tabSize', size);
+			}
+
+
+			// onclick & onchange functions
+			function changeMode() { // option
+				const mode = document.getElementById('select-mode').value;
+				loadMode(mode);
+				return socket.emit('changeOption', 'mode', mode);
+			}
+
+			function changeTheme() { // option
+				const theme = document.getElementById('select-theme').value;
+				loadTheme(theme);
+				return socket.emit('changeOption', 'theme', theme);
+			}
+
+			function changeTabSize() { // option
+				const tabSize = Number(document.getElementById('select-tabSize').value);
+				loadTabSize(tabSize);
+				return socket.emit('changeOption', 'tabSize', tabSize);
+			}
+
+			function downloadFile() { // salvare-button
+				return download(cm.getValue(), 'salvare.' + CodeMirror.findModeByMIME(cm.getOption('mode')).ext[0]);
+			}
+
+			let opacTimer;
+			const clipboard = new ClipboardJS('#share-button', { // share-button
+				text: function() {
+					const info = document.getElementById('share-info');
+					if (info.style.opactiy != '1') {
+						info.style.opacity = '1';
+						opacTimer = setTimeout(function() { info.style.opacity = '0'; }, 2000);
+					}
+					return window.location.href.split('#')[0]; // remove '#' from the end
+				}
+			});
+
+			function clickOnShare() {
+				const info = document.getElementById('share-info');
+				clearTimeout(opacTimer);
+				info.style.transition = 'none';
+				info.style.opacity = '0';
+				setTimeout(function() { info.style.transition = 'all 0.5s'; }, 20);
+			}
+
+			// options - dropdown
+			document.addEventListener('click', function(e) {
+				const options = document.getElementById('options');
+				const container = document.getElementById('options-container');
+				const liChildren = Array.from(container.getElementsByTagName('*'));
+
+				if (!(liChildren.indexOf(e.target) != -1 || e.target == container) && options.style.display != 'none') {
+					options.style.display = 'none';
+					container.style.backgroundColor = 'transparent';
+					container.getElementsByTagName('a')[0].style.color = 'white';
+				}
+			});
+
+			function openOptions() {
+				const container = document.getElementById('options-container');
+				const options = document.getElementById('options');
+				if (options.style.display != 'block') {
+					options.style.display = 'block';
+					container.style.backgroundColor = '#f2f2f2';
+					container.getElementsByTagName('a')[0].style.color = '#383838';
+				}
+			}
+		</script>
+	</div>
+</body>
+</html>
