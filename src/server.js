@@ -61,11 +61,6 @@ io.on('connection', function(socket) {
   const sessID = handshakeData._query['sessID'];
   const session = (sessID in sessions ? sessions[sessID] : createNewSession(sessID));
   session.addClient(socket);
-
-  socket.on('testelek', function(data) {
-    console.dir(sessID);
-    console.dir(data);
-  });
 });
 
 // randomstring
