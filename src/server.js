@@ -33,6 +33,9 @@ app.get('/', function(req, res) {
 
 app.get('/:id', function(req, res) {
   const sessID = req.params.id;
+  if (req.originalUrl.slice(-1) == '/')
+    return res.redirect('/' +sessID);
+  
   const file = fs.readFileSync(__dirname + '/site/editor.htm', 'utf8').replace("[[[[replaceWithID]]]]", sessID);
   res.send(file);
 });
