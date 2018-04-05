@@ -18,7 +18,7 @@ It uses [socket.io](https://socket.io) and [CodeMirror](https://codemirror.net) 
 **It's not running yet.**
 
 ## Author(s)
-* **Milan Szekely** - *Initial work* - [MakroBox](https://github.com/MakroBox)
+* **Milan Szekely** - *Initial work* - [szekelymilan](https://github.com/szekelymilan)
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
