@@ -12,16 +12,27 @@ console.log("Written by " + package.author + "\n");
 const express = require('express');
 const fs = require('fs');
 
-// Express (web server)
+// Express (web server) with SSL
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const credentials = {key: fs.readFileSync('../ssl/privkey.pem', 'utf8'), cert: fs.readFileSync('../ssl/fullchain.pem', 'utf8')};
+const serverHttps = require('https').Server(credentials, app);
+const ioHttps = require('socket.io')(serverHttps);
 const EditorSocketIOServer = require('./editor-socketio-server.js');
+
+app.set('trust proxy', true);
+app.use(function(req, res, next) { // Redirect www to non-www
+  if (req.headers.host.slice(0, 4) === 'www.') {
+    const newHost = req.headers.host.slice(4);
+    return res.redirect(301, req.protocol + '://' + newHost + req.originalUrl);
+  }
+  next();
+});
+
 app.use('/node_modules', express.static('../node_modules'));
 app.use('/assets', express.static('site/assets'));
 
-app.get('/', function(req, res) {
-  if ('newSession' in req.query) {
+app.get('/', function(req, res) { // Homepage
+  if ('newSession' in req.query) { // Start new session
     let sessID = randomString(8);
     do sessID = randomString(8)
     while (sessID in sessions);
@@ -31,7 +42,7 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/site/index.htm');
 });
 
-app.get('/:id', function(req, res) {
+app.get('/:id', function(req, res) { // Session editor
   const sessID = req.params.id;
   if (req.originalUrl.slice(-1) == '/')
     return res.redirect('/' +sessID);
@@ -48,7 +59,14 @@ app.use(function(error, req, res, next) { // Error 500: Internal Server Error
   res.status(500).sendFile(__dirname + '/site/errors/500.htm');
 });
 
-server.listen(80);
+serverHttps.listen(443);
+
+// Redirect HTTP to HTTPS
+const http = express();
+http.get('*', function(req, res) {  
+  res.redirect(301, 'https://' + req.headers.host + req.originalUrl);
+});
+http.listen(80);
 
 // socket.io server
 let sessions = {};
@@ -59,12 +77,13 @@ function createNewSession(id) {
   return sessions[id];
 }
 
-io.on('connection', function(socket) {
+function newConnection(socket) {
   const handshakeData = socket.request;
   const sessID = handshakeData._query['sessID'];
   const session = (sessID in sessions ? sessions[sessID] : createNewSession(sessID));
   session.addClient(socket);
-});
+}
+ioHttps.on('connection', newConnection);
 
 // randomstring
 function randomString(length) {
