@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MakroBox/salvare"
+    "url": "https://github.com/szekelymilan/salvare.git"
   },
   "author": "Milan Szekely <szekelymilan1125@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/MakroBox/salvare/issues"
+    "url": "https://github.com/szekelymilan/salvare/issues"
   },
-  "homepage": "https://github.com/MakroBox/salvare#readme",
+  "homepage": "https://github.com/szekelymilan/salvare#readme",
   "dependencies": {
     "clipboard": "2.0.0",
     "codemirror": "^5.36.0",
