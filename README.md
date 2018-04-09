@@ -15,7 +15,7 @@ Salvare is an open-source, online real-time collaborative code editor. It was in
 It uses [socket.io](https://socket.io) and [CodeMirror](https://codemirror.net) for the best experience.
 
 ## Official site
-**It's not running yet.**
+* [salva.re](https://salva.re)
 
 ## Author(s)
 * **Milan Szekely** - *Initial work* - [szekelymilan](https://github.com/szekelymilan)
