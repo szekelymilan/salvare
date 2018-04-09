@@ -1,13 +1,13 @@
 <p align="center">
-  <img src="https://github.com/MakroBox/salvare/blob/master/static/logo_github.png" width="500" />
+  <img src="https://github.com/szekelymilan/salvare/blob/master/static/logo_github.png" width="500" />
 </p>
 
 <p align="center">
   <img src="https://badges.frapsoft.com/os/v2/open-source.png?v=103" />
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
-  <img src="https://img.shields.io/github/package-json/v/MakroBox/salvare.svg" />
-  <img src="https://img.shields.io/github/languages/code-size/MakroBox/salvare.svg" />
-  <img src="https://img.shields.io/github/license/MakroBox/salvare.svg" />
+  <img src="https://img.shields.io/github/package-json/v/szekelymilan/salvare.svg" />
+  <img src="https://img.shields.io/github/languages/code-size/szekelymilan/salvare.svg" />
+  <img src="https://img.shields.io/github/license/szekelymilan/salvare.svg" />
 </p>
 
 ## What is Salvare?
