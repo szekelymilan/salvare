@@ -84,7 +84,7 @@
 	<nav class="menubar" id="upper">
 		<ul id="left">
 			<img id="logo" src="assets/long.png" onclick="window.location.href = '/';" ondragstart="return false;"></img>
-			<li onclick="window.location.href = '/?newSession';"><a href="#"><i class="fas fa-plus"></i></a></li>
+			<li onclick="window.location.href = '/?newSession';"><a href="#"><i class="fas fa-plus"></i></a><span class="tooltip">New session</span></li>
 			<li id="options-container" class="" onclick="openOptions();">
 				<a href="#"><i class="fas fa-cog"></i></a>
 				<div id="options">
@@ -177,7 +177,7 @@
 			</li>
 		</ul>
 		<ul id="right">
-			<li id="salvare-button" onclick="downloadFile();"><a href="#">Salvare!</a></li>
+			<li id="salvare-button" onclick="downloadFile();"><a href="#">Salvare!</a><span class="tooltip">Save code</span></li>
 			<li id="share-button" data-clipboard-action="copy"><a href="#">Share code</a></li>
 			<li onclick="window.open('https://github.com/szekelymilan/salvare', '_blank');"><a href="#"><i class="fab fa-github"></i> GitHub</a></li>
 		</ul>

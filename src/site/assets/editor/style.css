@@ -55,6 +55,7 @@ nav#upper ul#left li {
 	transition: all 0.5s;
 	line-height: 100%;
 	vertical-align: middle;
+	position: relative;
 }
 nav#upper ul#left li:hover { background-color: #f2f2f2 !important; }
 nav#upper ul#left li:hover a { color: #383838 !important; }
@@ -63,13 +64,15 @@ nav#upper ul li div#options {
 	position: absolute; 
 	background-color: #181818; 
 	z-index: 100;
-	left: 230px;
-	top: 42px;
+	left: 0px;
+	top: 36px;
 	width: 200px; 
 	height: 300px;
 	display: none;
+	cursor: default;
 }
 div.option { height: 100px; }
+div.option select { cursor: pointer; }
 
 nav#upper ul#right {
 	position: absolute;
@@ -91,6 +94,7 @@ nav#upper ul#right li {
 	border-radius: 2px;
 	font-family: 'Roboto Condensed', sans-serif;
 	transition: all 0.5s;
+	position: relative;
 }
 nav#upper ul#right li:hover { background-color: #f2f2f2; }
 nav#upper ul#right li:hover a { color: #383838; }
@@ -131,4 +135,38 @@ div#share-info {
 }
 @media all and (max-width: 650px) { 
 	div#share-info { left: calc(650px - 218px); } 
+}
+
+/* Tooltips */
+li span.tooltip {
+	position: absolute;
+	left: 50%;
+	top: 140%;
+	visibility: hidden;
+	width: 120px;
+	margin-left: -60px;
+	background-color: #555;
+	color: #fff;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	z-index: 1000;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+li span.tooltip::after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: transparent transparent #555 transparent;
+}
+
+li:hover span.tooltip {
+	visibility: visible;
+	opacity: 1;
 }
