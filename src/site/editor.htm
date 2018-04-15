@@ -272,8 +272,16 @@
 				return socket.emit('changeOption', 'tabSize', tabSize);
 			}
 
+			function getExtension() {
+				const mode = cm.getOption('mode');
+				if (mode == 'text/x-python')
+					return 'py';
+
+				return CodeMirror.findModeByMIME().ext[0]
+			}
+
 			function downloadFile() { // salvare-button
-				return download(cm.getValue(), 'salvare.' + CodeMirror.findModeByMIME(cm.getOption('mode')).ext[0]);
+				return download(cm.getValue(), 'salvare.' + getExtension());
 			}
 
 			let opacTimer;
