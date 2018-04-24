@@ -55,7 +55,7 @@ EditorSocketIOServer.prototype.addClient = function (socket) {
       if (!(option in self.options))
         return;
       self.options[option] = value;
-      socket.broadcast.emit('updateOption', option, value);
+      socket.broadcast['in'](self.docId).emit('updateOption', option, value);
     })
     .on('operation', function (revision, operation, selection) {
       self.mayWrite(socket, function (mayWrite) {
@@ -135,26 +135,26 @@ EditorSocketIOServer.prototype.onDisconnect = function (socket) {
 };
 
 function getDate() {
-	const d = new Date();
+  const d = new Date();
 
-	var hour = d.getHours();
-    hour = (hour < 10 ? "0" : "") + hour;
+  var hour = d.getHours();
+  hour = (hour < 10 ? "0" : "") + hour;
 
-    var min = d.getMinutes();
-    min = (min < 10 ? "0" : "") + min;
+  var min = d.getMinutes();
+  min = (min < 10 ? "0" : "") + min;
 
-    var sec = d.getSeconds();
-    sec = (sec < 10 ? "0" : "") + sec;
+  var sec = d.getSeconds();
+  sec = (sec < 10 ? "0" : "") + sec;
 
-    var year = d.getFullYear();
+  var year = d.getFullYear();
 
-    var month = d.getMonth() + 1;
-    month = (month < 10 ? "0" : "") + month;
-    
-    var day = d.getDate();
-    day = (day < 10 ? "0" : "") + day;
+  var month = d.getMonth() + 1;
+  month = (month < 10 ? "0" : "") + month;
 
-    return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
+  var day = d.getDate();
+  day = (day < 10 ? "0" : "") + day;
+
+  return year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec;
 }
 
 module.exports = EditorSocketIOServer;
