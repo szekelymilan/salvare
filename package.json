@@ -1,6 +1,6 @@
 {
   "name": "salvare-editor",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Collaborative real-time code editor",
   "main": "src/server.js",
   "scripts": {

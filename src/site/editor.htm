@@ -277,7 +277,7 @@
 				if (mode == 'text/x-python')
 					return 'py';
 
-				return CodeMirror.findModeByMIME().ext[0]
+				return CodeMirror.findModeByMIME(mode).ext[0]
 			}
 
 			function downloadFile() { // salvare-button
