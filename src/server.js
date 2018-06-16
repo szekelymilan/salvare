@@ -59,7 +59,7 @@ app.use(function(error, req, res, next) { // Error 500: Internal Server Error
   res.status(500).sendFile('/site/errors/500.htm', { root: __dirname });
 });
 
-server.listen(80);
+server.listen(8080);
 
 // socket.io server
 let sessions = {};
