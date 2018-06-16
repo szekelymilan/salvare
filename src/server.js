@@ -4,19 +4,19 @@
 */
 
 const package = require('../package.json');
-console.log("Salvare - server");
-console.log("v" + package.version);
-console.log("Written by " + package.author + "\n");
+console.log('Salvare - server');
+console.log(`v${package.version}`);
+console.log(`Written by ${package.author}\n`);
 
 // Packages
 const express = require('express');
 const fs = require('fs');
+const path = require('path');
 
-// Express (web server) with SSL
+// Express (web server)
 const app = express();
-const credentials = {key: fs.readFileSync('../ssl/privkey.pem', 'utf8'), cert: fs.readFileSync('../ssl/fullchain.pem', 'utf8')};
-const serverHttps = require('https').Server(credentials, app);
-const ioHttps = require('socket.io')(serverHttps);
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 const EditorSocketIOServer = require('./editor-socketio-server.js');
 
 app.set('trust proxy', true);
@@ -28,8 +28,8 @@ app.use(function(req, res, next) { // Redirect www to non-www
   next();
 });
 
-app.use('/node_modules', express.static('../node_modules'));
-app.use('/assets', express.static('site/assets'));
+app.use('/node_modules', express.static('./node_modules'));
+app.use('/assets', express.static('./src/site/assets'));
 
 app.get('/', function(req, res) { // Homepage
   if ('newSession' in req.query) { // Start new session
@@ -39,38 +39,31 @@ app.get('/', function(req, res) { // Homepage
     
     return res.redirect('/' +sessID);
   }
-  res.sendFile(__dirname + '/site/index.htm');
+  res.sendFile('/site/index.htm', { root: __dirname });
 });
 
 app.get('/:id', function(req, res) { // Session editor
   const sessID = req.params.id;
-  if (req.originalUrl.slice(-1) == '/')
+  if (req.originalUrl.slice(-1) === '/')
     return res.redirect('/' +sessID);
   
-  const file = fs.readFileSync(__dirname + '/site/editor.htm', 'utf8').replace("[[[[replaceWithID]]]]", sessID);
+  const file = fs.readFileSync(path.join(__dirname, '/site/editor.htm'), 'utf8').replace('[[[[replaceWithID]]]]', sessID);
   res.send(file);
 });
 
 app.use(function(req, res) { // Error 404: Not found
-  res.status(404).sendFile(__dirname + '/site/errors/404.htm');
+  res.status(404).sendFile('/site/errors/404.htm', { root: __dirname });
 });
 
 app.use(function(error, req, res, next) { // Error 500: Internal Server Error
-  res.status(500).sendFile(__dirname + '/site/errors/500.htm');
+  res.status(500).sendFile('/site/errors/500.htm', { root: __dirname });
 });
 
-serverHttps.listen(443);
-
-// Redirect HTTP to HTTPS
-const http = express();
-http.get('*', function(req, res) {  
-  res.redirect(301, 'https://' + req.headers.host + req.originalUrl);
-});
-http.listen(80);
+server.listen(80);
 
 // socket.io server
 let sessions = {};
-const defText = "";
+const defText = '';
 
 function createNewSession(id) {
   sessions[id] = new EditorSocketIOServer(defText, [], id);
@@ -83,7 +76,7 @@ function newConnection(socket) {
   const session = (sessID in sessions ? sessions[sessID] : createNewSession(sessID));
   session.addClient(socket);
 }
-ioHttps.on('connection', newConnection);
+io.on('connection', newConnection);
 
 // randomstring
 function randomString(length) {

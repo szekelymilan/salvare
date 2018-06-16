@@ -4,8 +4,7 @@
   "description": "Collaborative real-time code editor",
   "main": "src/server.js",
   "scripts": {
-    "start": "cd src && node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./src/server.js"
   },
   "repository": {
     "type": "git",
