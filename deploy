@@ -1,0 +1,7 @@
+#!/bin/bash
+echo "Deploying..."
+
+ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+sshpass -p $SSH_PASS rsync -r --delete-after --quiet --filter=':- .gitignore' ./ ${SSH_USER}@${SSH_HOST}:${REPO_PATH}
+
+echo "Deploying finished."
