@@ -16,7 +16,7 @@ const path = require('path');
 // Express (web server)
 const app = express();
 const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, { pingTimeout: 4000, pingInterval: 2000 });
 const EditorSocketIOServer = require('./editor-socketio-server.js');
 const domain = 'salva.re';
 
