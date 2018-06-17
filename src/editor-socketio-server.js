@@ -33,10 +33,10 @@ function extend (target, source) {
 }
 
 function addLog (main, id, ip) {
-  if (!fs.existsSync('../logs'))
-    fs.mkdirSync('../logs');
+  if (!fs.existsSync('logs'))
+    fs.mkdirSync('logs');
 
-  fs.appendFileSync('../logs/connections.txt', '['+getDate()+'] '+main+': '+id+' <- '+ip+'\n');
+  fs.appendFileSync('./logs/connections.txt', '['+getDate()+'] '+main+': '+id+' <- '+ip+'\n');
 }
 
 EditorSocketIOServer.prototype.addClient = function (socket) {
