@@ -18,14 +18,17 @@ const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const EditorSocketIOServer = require('./editor-socketio-server.js');
+const domain = 'salva.re';
 
 app.set('trust proxy', true);
 app.use(function(req, res, next) { // Redirect www to non-www
-  if (req.headers.host.slice(0, 4) === 'www.') {
-    const newHost = req.headers.host.slice(4);
-    return res.redirect(301, req.protocol + '://' + newHost + req.originalUrl);
-  }
-  next();
+  if (req.headers.host.slice(0, 4) === 'www.')
+    return res.redirect(301, req.protocol + '://' + req.headers.host.slice(4) + req.originalUrl);
+
+  if (req.headers.host.indexOf(domain) === -1)
+    return res.sendFile('/site/ip_access.htm', { root: __dirname });
+
+  return next();
 });
 
 app.use('/node_modules', express.static('./node_modules'));
