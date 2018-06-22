@@ -45,6 +45,10 @@ app.get('/', function(req, res) { // Homepage
   res.sendFile('/site/index.htm', { root: __dirname });
 });
 
+app.get('/google7a70ef35b4a34f12.html', function(req, res) {
+  res.sendFile('google7a70ef35b4a34f12.html', { root: __dirname });
+});
+
 app.get('/:id', function(req, res) { // Session editor
   const sessID = req.params.id;
   if (req.originalUrl.slice(-1) === '/')
