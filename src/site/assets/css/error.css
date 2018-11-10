@@ -3,58 +3,58 @@
  * Salvare is the work of Milan Szekely <szekelymilan1125@gmail.com>
 */
 body {
-	margin: 0;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+  margin: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 div#particles-js canvas {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: calc(100% - 120px);
-	background-color: #272822;
-	background-image: url('');
-	background-size: cover;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: calc(100% - 120px);
+  background-color: #272822;
+  background-image: url('');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
 }
 
 div#error {
-	position: absolute;
-	left: 50%;
-	bottom: 220px;
-	width: 270px;
-	margin-left: -135px;
-	text-align: center;
+  position: absolute;
+  left: 50%;
+  bottom: 220px;
+  width: 270px;
+  margin-left: -135px;
+  text-align: center;
 }
 span.big { font-size: 56px; font-weight: bold; }
 span.small { font-size: 42px; }
 span.home { font-size: 20px; }
 
 div#credit {
-	position: absolute;
-	left: 0px;
-	top: calc(100% - 120px);
-	width: 100%;
-	height: 120px;
-	background-color: #181818;
-	text-align: center;
-	line-height: 120px;
-	vertical-align: middle;
+  position: absolute;
+  left: 0px;
+  top: calc(100% - 120px);
+  width: 100%;
+  height: 120px;
+  background-color: #181818;
+  text-align: center;
+  line-height: 120px;
+  vertical-align: middle;
 }
 
 div span {
-	font-family: 'Open Sans', sans-serif;
-	color: white;
-	display: inline-block;
-	vertical-align: middle;
-	line-height: normal;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
 }
 span a { color: #ec3360; }
 span a:active { color: #83223a; }

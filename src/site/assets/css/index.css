@@ -3,80 +3,80 @@
  * Salvare is the work of Milan Szekely <szekelymilan1125@gmail.com>
 */
 body {
-	margin: 0;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
+  margin: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 div#particles-js canvas {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: calc(100% - 120px);
-	background-color: #272822;
-	background-image: url('');
-	background-size: cover;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: calc(100% - 120px);
+  background-color: #272822;
+  background-image: url('');
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
 }
 
 div#main {
-	position: absolute;
-	font-size: 24px;
-	left: 50%;
-	top: 50%;
-	width: 400px;
-	height: 300px;
-	margin-left: -200px;
-	margin-top: -300px;
-	text-align: center;
-	line-height: 300px;
-	vertical-align: middle;
+  position: absolute;
+  font-size: 24px;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  height: 300px;
+  margin-left: -200px;
+  margin-top: -300px;
+  text-align: center;
+  line-height: 300px;
+  vertical-align: middle;
 }
 div#main span { line-height: 38px; }
 div#main img#logo { max-width: 350px; }
 
 button {
-	display: inline;
-	color: white;
-	background-color: transparent;
-	padding: 6px 16px;
-	margin-top: -8px;
-	text-align: center;
-	display: inline-block;
-	font-size: 16px;
-	cursor: pointer;	
-	border: solid #ec3360 2px;
-	border-radius: 2px;
-	font-family: 'Roboto Condensed', sans-serif;
-	transition: all 0.5s;
-	background-color: #ec3360;
+  display: inline;
+  color: white;
+  background-color: transparent;
+  padding: 6px 16px;
+  margin-top: -8px;
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;  
+  border: solid #ec3360 2px;
+  border-radius: 2px;
+  font-family: 'Roboto Condensed', sans-serif;
+  transition: all 0.5s;
+  background-color: #ec3360;
 }
 button:hover { background-color: #83223a; border-color: #83223a; }
 
 div#credit {
-	position: absolute;
-	left: 0px;
-	top: calc(100% - 120px);
-	width: 100%;
-	height: 120px;
-	background-color: #181818;
-	text-align: center;
-	line-height: 120px;
-	vertical-align: middle;
+  position: absolute;
+  left: 0px;
+  top: calc(100% - 120px);
+  width: 100%;
+  height: 120px;
+  background-color: #181818;
+  text-align: center;
+  line-height: 120px;
+  vertical-align: middle;
 }
 
 div span {
-	font-family: 'Open Sans', sans-serif;
-	color: white;
-	display: inline-block;
-	vertical-align: middle;
-	line-height: normal;
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
 }
 span a { color: #ec3360; }
 span a:active { color: #83223a; }
