@@ -4,7 +4,7 @@
 */
 
 const package = require('../package.json');
-console.log('Salvare - server');
+console.log('salvare - server');
 console.log(`v${package.version}`);
 console.log(`Written by ${package.author}\n`);
 
@@ -25,7 +25,7 @@ app.use(function(req, res, next) { // Redirect www to non-www
   if (req.headers.host.slice(0, 4) === 'www.')
     return res.redirect(301, req.protocol + '://' + req.headers.host.slice(4) + req.originalUrl);
 
-  if (req.headers.host.indexOf(domain) === -1)
+  if (req.headers.host.indexOf(domain) === -1 && req.headers.host.indexOf('127.0.0.1') === -1)
     return res.sendFile('/site/ip_access.htm', { root: __dirname });
 
   return next();
@@ -85,7 +85,6 @@ function newConnection(socket) {
 }
 io.on('connection', newConnection);
 
-// randomstring
 function randomString(length) {
   let text = '';
   const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
